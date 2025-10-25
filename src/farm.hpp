@@ -18,6 +18,8 @@ class Farm {
     int number_of_rows();
     int number_of_columns();
     std::string get_symbol(int row, int column);
-    void plant(int row, int column, Plot *plot);
+    bool plant(int row, int column, Plot *plot);
+    bool harvest(int row, int column);
     void end_day();
+    ~Farm();
 };

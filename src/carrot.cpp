@@ -15,3 +15,11 @@ std::string Carrot::symbol() {
 void Carrot::end_day() {
   age += 1;
 }
+
+bool Carrot::is_soil() {
+  return false;
+}
+
+bool Carrot::is_harvestable() {
+  return age >= 2;
+}

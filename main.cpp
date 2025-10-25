@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <stdexcept>
 
 #include "src/player.hpp"
 #include "src/farm.hpp"
@@ -10,11 +12,13 @@ int main() {
   Player player(7, 8);
   Farm farm(7, 8, &player);
   FarmPrinter printer(&farm);
+  int current_day = 1;
   bool game_in_progress = true;
   std::string player_input;
 
   while(game_in_progress) {
     ansi_clear();
+    std::cout << "Day " << current_day << std::endl;
     std::cout << printer.pp() << std::endl;
     std::cin >> player_input;
 
@@ -30,9 +34,16 @@ int main() {
       player.move_up();
     } else if(player_input == "c") {
       Carrot *carrot = new Carrot();
-      farm.plant(player.row(), player.column(), carrot);
+      if(!farm.plant(player.row(), player.column(), carrot)) {
+        std::cout << "Cannot plant on a carrot" << std::endl;
+      }
     } else if(player_input == "e") {
       farm.end_day();
+      current_day++;
+    } else if(player_input == "h") {
+      if(!farm.harvest(player.row(), player.column())) {
+        std::cout << "Cannot harvest a non-adult carrot" << std::endl;
+      }
     }
   }
 }

@@ -43,30 +43,66 @@ TEST_CASE( "it moves the player up" ) {
 
 TEST_CASE( "it prevents moving right beyond boundaries" ) {
   Player player(2, 2);
-  player.move_right(); // column 1
-  player.move_right(); // should not move beyond column 1
+  player.move_right();
+  player.move_right();
   REQUIRE( player.row() == 0 );
   REQUIRE( player.column() == 1 );
 }
 
 TEST_CASE( "it prevents moving down beyond boundaries" ) {
   Player player(2, 2);
-  player.move_down(); // row 1
-  player.move_down(); // should not move beyond row 1
+  player.move_down();
+  player.move_down();
   REQUIRE( player.row() == 1 );
   REQUIRE( player.column() == 0 );
 }
 
 TEST_CASE( "it prevents moving left beyond boundaries" ) {
   Player player(2, 2);
-  player.move_left(); // should not move beyond column 0
+  player.move_left();
   REQUIRE( player.row() == 0 );
   REQUIRE( player.column() == 0 );
 }
 
 TEST_CASE( "it prevents moving up beyond boundaries" ) {
   Player player(2, 2);
-  player.move_up(); // should not move beyond row 0
+  player.move_up();
+  REQUIRE( player.row() == 0 );
+  REQUIRE( player.column() == 0 );
+}
+
+TEST_CASE( "it maintains consistent position interface" ) {
+  Player player(3, 3);
+  
+  REQUIRE( player.row() >= 0 );
+  REQUIRE( player.column() >= 0 );
+  REQUIRE( player.row() < 3 );
+  REQUIRE( player.column() < 3 );
+  
+  player.move_right();
+  player.move_down();
+  REQUIRE( player.row() >= 0 );
+  REQUIRE( player.column() >= 0 );
+  REQUIRE( player.row() < 3 );
+  REQUIRE( player.column() < 3 );
+}
+
+TEST_CASE( "it handles complex movement sequences" ) {
+  Player player(3, 3);
+  
+  player.move_right();
+  player.move_down();
+  player.move_left();
+  player.move_up();
+  player.move_right();
+  player.move_right();
+  
+  REQUIRE( player.row() == 0 );
+  REQUIRE( player.column() == 2 );
+}
+
+TEST_CASE( "it initializes player at origin" ) {
+  Player player(1, 1);
   REQUIRE( player.row() == 0 );
   REQUIRE( player.column() == 0 );
 }
