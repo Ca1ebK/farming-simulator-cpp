@@ -20,6 +20,13 @@ int main() {
     ansi_clear();
     std::cout << "Day " << current_day << std::endl;
     std::cout << printer.pp() << std::endl;
+    std::cout << "=== Game Controls ===" << std::endl;
+    std::cout << "Move: W / A / S / D" << std::endl;
+    std::cout << "Plant: C" << std::endl;
+    std::cout << "Harvest: H" << std::endl;
+    std::cout << "End Day: E" << std::endl;
+    std::cout << "Exit Game: Q" << std::endl;
+    std::cout << "=====================" << std::endl;
     std::cin >> player_input;
 
     if(player_input == "q") {
