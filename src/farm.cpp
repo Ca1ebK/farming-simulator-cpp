@@ -31,15 +31,29 @@ std::string Farm::get_symbol(int row, int column) {
   }
 }
 
-void Farm::plant(int row, int column, Plot *plot) {
+bool Farm::plant(int row, int column, Plot *plot) {
   Plot *current_plot = plots.at(row).at(column);
+  if(current_plot->symbol() != ".") {
+    return false;
+  }
   plots.at(row).at(column) = plot;
   delete current_plot;
+  return true;
 }
 
 void Farm::water(int row, int column) {
   Plot *current_plot = plots.at(row).at(column);
   current_plot->water();
+}
+
+bool Farm::harvest(int row, int column) {
+  Plot *current_plot = plots.at(row).at(column);
+  if(current_plot->symbol() != "W") {
+    return false;
+  }
+  plots.at(row).at(column) = new Soil();
+  delete current_plot;
+  return true;
 }
 
 void Farm::end_day() {
