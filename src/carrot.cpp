@@ -5,7 +5,7 @@
 std::string Carrot::symbol() {
   if(age == 0) {
     return "v";
-  } else if (age == 1) {
+  } else if (age <= 2) {
     return "V";
   } else {
     return "W";
@@ -13,13 +13,18 @@ std::string Carrot::symbol() {
 }
 
 void Carrot::end_day() {
-  age += 1;
+  if(watered) {
+    age += 2;
+  } else {
+    age += 1;
+  }
+  watered = false;
 }
 
-bool Carrot::is_soil() {
-  return false;
+void Carrot::water() {
+  watered = true;
 }
 
-bool Carrot::is_harvestable() {
-  return age >= 2;
+int Carrot::get_age() {
+  return age;
 }

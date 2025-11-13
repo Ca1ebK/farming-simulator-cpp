@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <stdexcept>
 
 #include "src/player.hpp"
 #include "src/farm.hpp"
@@ -9,21 +7,19 @@
 #include "src/ansi_clear.hpp"
 
 int main() {
-  Player player(7, 8);
+  Player player;
   Farm farm(7, 8, &player);
   FarmPrinter printer(&farm);
-  int current_day = 1;
   bool game_in_progress = true;
   std::string player_input;
 
   while(game_in_progress) {
     ansi_clear();
-    std::cout << "Day " << current_day << std::endl;
     std::cout << printer.pp() << std::endl;
     std::cout << "=== Game Controls ===" << std::endl;
     std::cout << "Move: W / A / S / D" << std::endl;
     std::cout << "Plant: C" << std::endl;
-    std::cout << "Harvest: H" << std::endl;
+    std::cout << "Water: T" << std::endl;
     std::cout << "End Day: E" << std::endl;
     std::cout << "Exit Game: Q" << std::endl;
     std::cout << "=====================" << std::endl;
@@ -41,16 +37,11 @@ int main() {
       player.move_up();
     } else if(player_input == "c") {
       Carrot *carrot = new Carrot();
-      if(!farm.plant(player.row(), player.column(), carrot)) {
-        std::cout << "Cannot plant on a carrot" << std::endl;
-      }
+      farm.plant(player.row(), player.column(), carrot);
+    } else if(player_input == "t") {
+      farm.water(player.row(), player.column());
     } else if(player_input == "e") {
       farm.end_day();
-      current_day++;
-    } else if(player_input == "h") {
-      if(!farm.harvest(player.row(), player.column())) {
-        std::cout << "Cannot harvest a non-adult carrot" << std::endl;
-      }
     }
   }
 }

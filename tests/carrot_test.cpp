@@ -5,81 +5,70 @@
 
 #include "../src/carrot.hpp"
 
-TEST_CASE( "it returns a v as its symbol when it is a seedling" ) {
+TEST_CASE( "it returns a v as its when it is a seedling" ) {
   Carrot carrot;
   REQUIRE( carrot.symbol() == "v" );
 }
 
-TEST_CASE( "it returns a V when the carrot is half-grown after one day" ) {
+TEST_CASE( "it returns a V when the carrot is half-grown" ) {
   Carrot carrot;
   carrot.end_day();
   REQUIRE( carrot.symbol() == "V" );
 }
 
-TEST_CASE( "it returns a W when the carrot is fully grown after two days" ) {
+TEST_CASE( "it returns a W when the carrot is fully grown" ) {
   Carrot carrot;
   carrot.end_day();
   carrot.end_day();
   REQUIRE( carrot.symbol() == "W" );
 }
 
-TEST_CASE( "it remains fully grown after additional days" ) {
+TEST_CASE( "it starts off with age 0" ) {
   Carrot carrot;
-  carrot.end_day();
-  carrot.end_day();
-  carrot.end_day();
-  REQUIRE( carrot.symbol() == "W" );
+  REQUIRE( carrot.get_age() == 0 );
 }
 
-TEST_CASE( "it maintains consistent interface across growth stages" ) {
+TEST_CASE( "it has age 1 after we end the day one time" ) {
   Carrot carrot;
-  REQUIRE( !carrot.symbol().empty() );
-  
   carrot.end_day();
-  REQUIRE( !carrot.symbol().empty() );
-  
-  carrot.end_day();
-  REQUIRE( !carrot.symbol().empty() );
+  REQUIRE( carrot.get_age() == 1 );
 }
 
-TEST_CASE( "it progresses through all growth stages" ) {
+TEST_CASE( "it has age 2 after we end the day twice" ) {
   Carrot carrot;
-  REQUIRE( carrot.symbol() == "v" );
-  
   carrot.end_day();
-  REQUIRE( carrot.symbol() == "V" );
-  
   carrot.end_day();
-  REQUIRE( carrot.symbol() == "W" );
+  REQUIRE( carrot.get_age() == 2 );
 }
 
-TEST_CASE( "it starts as a seedling" ) {
+TEST_CASE( "it increases the age by 2 when we end the day after watering" ) {
   Carrot carrot;
-  REQUIRE( carrot.symbol() == "v" );
+  carrot.water();
+  carrot.end_day();
+  REQUIRE( carrot.get_age() == 2 );
 }
 
-TEST_CASE( "it is not harvestable as a seedling" ) {
+TEST_CASE( "watering more than once per day has no effect" ) {
   Carrot carrot;
-  REQUIRE( carrot.is_harvestable() == false );
+  carrot.water();
+  carrot.water();
+  carrot.end_day();
+  REQUIRE( carrot.get_age() == 2 );
 }
 
-TEST_CASE( "it is not harvestable when half-grown" ) {
+TEST_CASE( "watering on a given day should not affect future days" ) {
   Carrot carrot;
+  carrot.water();
   carrot.end_day();
-  REQUIRE( carrot.is_harvestable() == false );
+  carrot.end_day();
+  REQUIRE( carrot.get_age() == 3 );
 }
 
-TEST_CASE( "it is harvestable when fully grown" ) {
+TEST_CASE( "ages the carrot properly after many waterings on many days" ) {
   Carrot carrot;
+  carrot.water();
   carrot.end_day();
+  carrot.water();
   carrot.end_day();
-  REQUIRE( carrot.is_harvestable() == true );
-}
-
-TEST_CASE( "it remains harvestable after additional days" ) {
-  Carrot carrot;
-  carrot.end_day();
-  carrot.end_day();
-  carrot.end_day();
-  REQUIRE( carrot.is_harvestable() == true );
+  REQUIRE( carrot.get_age() == 4 );
 }
