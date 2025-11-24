@@ -1,5 +1,15 @@
 #include "player.hpp"
 
+Player::Player() {
+  max_rows = 100;
+  max_columns = 100;
+}
+
+Player::Player(int rows, int columns) {
+  max_rows = rows;
+  max_columns = columns;
+}
+
 int Player::row() {
   return current_row;
 }
@@ -9,11 +19,15 @@ int Player::column() {
 }
 
 void Player::move_right() {
-  current_column += 1;
+  if (current_column < max_columns - 1) {
+    current_column += 1;
+  }
 }
 
 void Player::move_down() {
-  current_row += 1;
+  if (current_row < max_rows - 1) {
+    current_row += 1;
+  }
 }
 
 void Player::move_left() {
