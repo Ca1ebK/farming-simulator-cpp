@@ -11,3 +11,7 @@ void Soil::end_day() {
 void Soil::water() {
   // no-op
 }
+
+bool Soil::is_harvestable() {
+  return false;
+}

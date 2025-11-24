@@ -48,7 +48,7 @@ void Farm::water(int row, int column) {
 
 bool Farm::harvest(int row, int column) {
   Plot *current_plot = plots.at(row).at(column);
-  if(current_plot->symbol() != "W") {
+  if(!current_plot->is_harvestable()) {
     return false;
   }
   plots.at(row).at(column) = new Soil();

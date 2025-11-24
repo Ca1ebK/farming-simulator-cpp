@@ -4,6 +4,10 @@
 #include "src/farm.hpp"
 #include "src/farm_printer.hpp"
 #include "src/carrot.hpp"
+#include "src/lettuce.hpp"
+#include "src/spinach.hpp"
+#include "src/beet.hpp"
+#include "src/brusselssprouts.hpp"
 #include "src/ansi_clear.hpp"
 
 int main() {
@@ -17,10 +21,13 @@ int main() {
   while(game_in_progress) {
     ansi_clear();
     std::cout << "Day " << current_day << std::endl;
-    std::cout << printer.pp() << std::endl;
     std::cout << "=== Game Controls ===" << std::endl;
     std::cout << "Move: W / A / S / D" << std::endl;
-    std::cout << "Plant: C" << std::endl;
+    std::cout << "Plant Carrot: C" << std::endl;
+    std::cout << "Plant Lettuce: L" << std::endl;
+    std::cout << "Plant Spinach: P" << std::endl;
+    std::cout << "Plant Beet: B" << std::endl;
+    std::cout << "Plant Brussels Sprouts: U" << std::endl;
     std::cout << "Harvest: H" << std::endl;
     std::cout << "Water: T" << std::endl;
     std::cout << "End Day: E" << std::endl;
@@ -43,11 +50,35 @@ int main() {
       Carrot *carrot = new Carrot();
       if(!farm.plant(player.row(), player.column(), carrot)) {
         delete carrot;
-        std::cout << "Cannot plant on a carrot" << std::endl;
+        std::cout << "Cannot plant on existing seed or plant" << std::endl;
+      }
+    } else if(player_input == "l") {
+      Lettuce *lettuce = new Lettuce();
+      if(!farm.plant(player.row(), player.column(), lettuce)) {
+        delete lettuce;
+        std::cout << "Cannot plant on existing seed or plant" << std::endl;
+      }
+    } else if(player_input == "p") {
+      Spinach *spinach = new Spinach();
+      if(!farm.plant(player.row(), player.column(), spinach)) {
+        delete spinach;
+        std::cout << "Cannot plant on existing seed or plant" << std::endl;
+      }
+    } else if(player_input == "b") {
+      Beet *beet = new Beet();
+      if(!farm.plant(player.row(), player.column(), beet)) {
+        delete beet;
+        std::cout << "Cannot plant on existing seed or plant" << std::endl;
+      }
+    } else if(player_input == "u") {
+      BrusselsSprouts *brusselssprouts = new BrusselsSprouts();
+      if(!farm.plant(player.row(), player.column(), brusselssprouts)) {
+        delete brusselssprouts;
+        std::cout << "Cannot plant on existing seed or plant" << std::endl;
       }
     } else if(player_input == "h") {
       if(!farm.harvest(player.row(), player.column())) {
-        std::cout << "Cannot harvest a non-adult carrot" << std::endl;
+        std::cout << "Cannot harvest non-adult plant" << std::endl;
       }
     } else if(player_input == "t") {
       farm.water(player.row(), player.column());
