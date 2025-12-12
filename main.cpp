@@ -10,6 +10,9 @@
 #include "src/brusselssprouts.hpp"
 #include "src/ansi_clear.hpp"
 
+#include <termios.h>
+#include <unistd.h>
+
 int main() {
 
   int current_day = 1;
@@ -18,6 +21,7 @@ int main() {
   FarmPrinter printer(&farm);
   bool game_in_progress = true;
   char player_input;
+
 
   while(game_in_progress) {
     ansi_clear();
@@ -40,13 +44,29 @@ int main() {
     if(player_input == 'q') {
       game_in_progress = false;
     } else if(player_input == 'd') {
-      player.move_right();
+      int target_row = player.row();
+      int target_column = player.column() + 1;
+      if(!farm.is_bunny_at(target_row, target_column)) {
+        player.move_right();
+      }
     } else if(player_input == 's') {
-      player.move_down();
+      int target_row = player.row() + 1;
+      int target_column = player.column();
+      if(!farm.is_bunny_at(target_row, target_column)) {
+        player.move_down();
+      }
     } else if(player_input == 'a') {
-      player.move_left();
+      int target_row = player.row();
+      int target_column = player.column() - 1;
+      if(!farm.is_bunny_at(target_row, target_column)) {
+        player.move_left();
+      }
     } else if(player_input == 'w') {
-      player.move_up();
+      int target_row = player.row() - 1;
+      int target_column = player.column();
+      if(!farm.is_bunny_at(target_row, target_column)) {
+        player.move_up();
+      }
     } else if(player_input == 'c') {
       Carrot *carrot = new Carrot();
       if(!farm.plant(player.row(), player.column(), carrot)) {

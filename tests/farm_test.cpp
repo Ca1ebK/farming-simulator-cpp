@@ -13,48 +13,48 @@
 
 TEST_CASE( "it can be initialized with a single plot" ) {
   Player player;
-  Farm farm(1, 1, &player);
+  Farm farm(1, 1, &player, false);
   REQUIRE( farm.number_of_rows() == 1 );
   REQUIRE( farm.number_of_columns() == 1 );
 }
 
 TEST_CASE( "it can be initialized as a 1x2 farm" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   REQUIRE( farm.number_of_rows() == 1 );
   REQUIRE( farm.number_of_columns() == 2 );
 }
 
 TEST_CASE( "it can be initialized as a 2x1 farm" ) {
   Player player;
-  Farm farm(2, 1, &player);
+  Farm farm(2, 1, &player, false);
   REQUIRE( farm.number_of_rows() == 2 );
   REQUIRE( farm.number_of_columns() == 1 );
 }
 
 TEST_CASE( "it returns the symbol for a single soil plot" ) {
   Player player;
-  Farm farm(1, 1, &player);
+  Farm farm(1, 1, &player, false);
   REQUIRE( farm.get_symbol(0, 0) == "@" );
 }
 
 TEST_CASE( "it returns the symbols for a 1x2 farm" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   REQUIRE( farm.get_symbol(0, 0) == "@" );
   REQUIRE( farm.get_symbol(0, 1) == "." );
 }
 
 TEST_CASE( "it returns the symbols for a 2x1 farm" ) {
   Player player;
-  Farm farm(2, 1, &player);
+  Farm farm(2, 1, &player, false);
   REQUIRE( farm.get_symbol(0, 0) == "@" );
   REQUIRE( farm.get_symbol(1, 0) == "." );
 }
 
 TEST_CASE( "it allows us to plant a carrot" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
   REQUIRE( farm.get_symbol(0, 1) == "x" );
@@ -62,7 +62,7 @@ TEST_CASE( "it allows us to plant a carrot" ) {
 
 TEST_CASE( "it allows us to plant a lettuce" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Lettuce *lettuce = new Lettuce();
   farm.plant(0, 1, lettuce);
   REQUIRE( farm.get_symbol(0, 1) == "x" );
@@ -70,7 +70,7 @@ TEST_CASE( "it allows us to plant a lettuce" ) {
 
 TEST_CASE( "it allows us to plant a spinach" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Spinach *spinach = new Spinach();
   farm.plant(0, 1, spinach);
   REQUIRE( farm.get_symbol(0, 1) == "x" );
@@ -78,7 +78,7 @@ TEST_CASE( "it allows us to plant a spinach" ) {
 
 TEST_CASE( "it allows us to plant a beet" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Beet *beet = new Beet();
   farm.plant(0, 1, beet);
   REQUIRE( farm.get_symbol(0, 1) == "x" );
@@ -86,7 +86,7 @@ TEST_CASE( "it allows us to plant a beet" ) {
 
 TEST_CASE( "it allows us to plant brussels sprouts" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   BrusselsSprouts *brusselssprouts = new BrusselsSprouts();
   farm.plant(0, 1, brusselssprouts);
   REQUIRE( farm.get_symbol(0, 1) == "x" );
@@ -94,7 +94,7 @@ TEST_CASE( "it allows us to plant brussels sprouts" ) {
 
 TEST_CASE( "it does not allow planting on an existing plant" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot1 = new Carrot();
   Carrot *carrot2 = new Carrot();
   farm.plant(0, 1, carrot1);
@@ -105,7 +105,7 @@ TEST_CASE( "it does not allow planting on an existing plant" ) {
 
 TEST_CASE( "it allows us to water a carrot" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
   farm.water(0, 1);
@@ -115,7 +115,7 @@ TEST_CASE( "it allows us to water a carrot" ) {
 
 TEST_CASE( "it allows us to water a lettuce" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Lettuce *lettuce = new Lettuce();
   farm.plant(0, 1, lettuce);
   farm.water(0, 1);
@@ -125,7 +125,7 @@ TEST_CASE( "it allows us to water a lettuce" ) {
 
 TEST_CASE( "carrot grows from seed to seedling after one day" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
   farm.end_day();
@@ -134,7 +134,7 @@ TEST_CASE( "carrot grows from seed to seedling after one day" ) {
 
 TEST_CASE( "carrot grows from seedling to mature after two days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
   farm.end_day();
@@ -144,7 +144,7 @@ TEST_CASE( "carrot grows from seedling to mature after two days" ) {
 
 TEST_CASE( "lettuce grows from seed to seedling after two days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Lettuce *lettuce = new Lettuce();
   farm.plant(0, 1, lettuce);
   farm.end_day();
@@ -154,7 +154,7 @@ TEST_CASE( "lettuce grows from seed to seedling after two days" ) {
 
 TEST_CASE( "lettuce grows from seedling to mature after four days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Lettuce *lettuce = new Lettuce();
   farm.plant(0, 1, lettuce);
   for(int i = 0; i < 4; i++) {
@@ -165,7 +165,7 @@ TEST_CASE( "lettuce grows from seedling to mature after four days" ) {
 
 TEST_CASE( "spinach grows from seed to seedling after two days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Spinach *spinach = new Spinach();
   farm.plant(0, 1, spinach);
   farm.end_day();
@@ -175,7 +175,7 @@ TEST_CASE( "spinach grows from seed to seedling after two days" ) {
 
 TEST_CASE( "spinach grows from seedling to mature after five days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Spinach *spinach = new Spinach();
   farm.plant(0, 1, spinach);
   for(int i = 0; i < 5; i++) {
@@ -186,7 +186,7 @@ TEST_CASE( "spinach grows from seedling to mature after five days" ) {
 
 TEST_CASE( "beet grows from seed to seedling after two days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Beet *beet = new Beet();
   farm.plant(0, 1, beet);
   farm.end_day();
@@ -196,7 +196,7 @@ TEST_CASE( "beet grows from seed to seedling after two days" ) {
 
 TEST_CASE( "beet grows from seedling to mature after seven days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Beet *beet = new Beet();
   farm.plant(0, 1, beet);
   for(int i = 0; i < 7; i++) {
@@ -207,7 +207,7 @@ TEST_CASE( "beet grows from seedling to mature after seven days" ) {
 
 TEST_CASE( "brussels sprouts grows from seed to seedling after five days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   BrusselsSprouts *brusselssprouts = new BrusselsSprouts();
   farm.plant(0, 1, brusselssprouts);
   for(int i = 0; i < 5; i++) {
@@ -218,7 +218,7 @@ TEST_CASE( "brussels sprouts grows from seed to seedling after five days" ) {
 
 TEST_CASE( "brussels sprouts grows from seedling to mature after fifteen days" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   BrusselsSprouts *brusselssprouts = new BrusselsSprouts();
   farm.plant(0, 1, brusselssprouts);
   for(int i = 0; i < 15; i++) {
@@ -229,7 +229,7 @@ TEST_CASE( "brussels sprouts grows from seedling to mature after fifteen days" )
 
 TEST_CASE( "it allows harvesting a mature carrot" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
   farm.end_day();
@@ -241,7 +241,7 @@ TEST_CASE( "it allows harvesting a mature carrot" ) {
 
 TEST_CASE( "it does not allow harvesting a carrot seedling" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
   farm.end_day();
@@ -252,7 +252,7 @@ TEST_CASE( "it does not allow harvesting a carrot seedling" ) {
 
 TEST_CASE( "it does not allow harvesting a carrot seed" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
   bool result = farm.harvest(0, 1);
@@ -262,7 +262,7 @@ TEST_CASE( "it does not allow harvesting a carrot seed" ) {
 
 TEST_CASE( "it allows harvesting a mature lettuce" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Lettuce *lettuce = new Lettuce();
   farm.plant(0, 1, lettuce);
   for(int i = 0; i < 4; i++) {
@@ -275,7 +275,7 @@ TEST_CASE( "it allows harvesting a mature lettuce" ) {
 
 TEST_CASE( "it does not allow harvesting a lettuce seedling" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Lettuce *lettuce = new Lettuce();
   farm.plant(0, 1, lettuce);
   farm.end_day();
@@ -287,7 +287,7 @@ TEST_CASE( "it does not allow harvesting a lettuce seedling" ) {
 
 TEST_CASE( "it allows harvesting a mature spinach" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Spinach *spinach = new Spinach();
   farm.plant(0, 1, spinach);
   for(int i = 0; i < 5; i++) {
@@ -300,7 +300,7 @@ TEST_CASE( "it allows harvesting a mature spinach" ) {
 
 TEST_CASE( "it allows harvesting a mature beet" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   Beet *beet = new Beet();
   farm.plant(0, 1, beet);
   for(int i = 0; i < 7; i++) {
@@ -313,7 +313,7 @@ TEST_CASE( "it allows harvesting a mature beet" ) {
 
 TEST_CASE( "it allows harvesting a mature brussels sprouts" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   BrusselsSprouts *brusselssprouts = new BrusselsSprouts();
   farm.plant(0, 1, brusselssprouts);
   for(int i = 0; i < 15; i++) {
@@ -326,7 +326,7 @@ TEST_CASE( "it allows harvesting a mature brussels sprouts" ) {
 
 TEST_CASE( "it does not allow harvesting soil" ) {
   Player player;
-  Farm farm(1, 2, &player);
+  Farm farm(1, 2, &player, false);
   bool result = farm.harvest(0, 1);
   REQUIRE( result == false );
   REQUIRE( farm.get_symbol(0, 1) == "." );
@@ -334,7 +334,7 @@ TEST_CASE( "it does not allow harvesting soil" ) {
 
 TEST_CASE( "end_day affects all plots on the farm" ) {
   Player player;
-  Farm farm(2, 2, &player);
+  Farm farm(2, 2, &player, false);
   Carrot *carrot1 = new Carrot();
   Carrot *carrot2 = new Carrot();
   Lettuce *lettuce = new Lettuce();
@@ -349,7 +349,7 @@ TEST_CASE( "end_day affects all plots on the farm" ) {
 
 TEST_CASE( "watering affects growth speed for all vegetables" ) {
   Player player;
-  Farm farm(1, 3, &player);
+  Farm farm(1, 3, &player, false);
   Carrot *carrot = new Carrot();
   Lettuce *lettuce = new Lettuce();
   farm.plant(0, 1, carrot);
