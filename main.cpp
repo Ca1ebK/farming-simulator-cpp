@@ -10,9 +10,6 @@
 #include "src/brusselssprouts.hpp"
 #include "src/ansi_clear.hpp"
 
-#include <termios.h>
-#include <unistd.h>
-
 int main() {
 
   int current_day = 1;
@@ -21,7 +18,6 @@ int main() {
   FarmPrinter printer(&farm);
   bool game_in_progress = true;
   char player_input;
-
 
   while(game_in_progress) {
     ansi_clear();
